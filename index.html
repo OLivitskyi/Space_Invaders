@@ -7,15 +7,33 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<div id="game-container">
+<div id="start-menu" class="overlay">
+    <div class="start-menu-content">
+        <h1>Simple Space Invaders Game</h1>
+        <p>Use the arrow keys to move the player and the space bar to shoot.</p>
+        <p>Avoid the enemies and shoot them to gain points. You start with 3 lives. The game ends when you lose all your lives.</p>
+        <button id="start-game">Start</button>
+        <button id="exit-game">Exit</button>
+    </div>
+</div>
+<div id="pause-menu" class="overlay" style="display: none;">
+    <div class="pause-menu-content">
+        <h1>Game Paused</h1>
+        <button id="resume-game">Resume</button>
+        <button id="restart-game">Restart</button>
+        <button id="exit-game-pause">Exit</button>
+    </div>
+</div>
+<div id="game-container" style="display: none;">
     <div id="menu">
-        <button id="continue">Continue</button>
-        <button id="restart">Restart</button>
+        <button id="continue" style="display: none;">Continue</button>
+        <button id="restart" style="display: none;">Restart</button>
     </div>
     <div id="scoreboard">
         <p>Time Elapsed: <span id="time">0</span> seconds</p>
         <p>Score: <span id="score">0</span></p>
         <p>Lives Left: <span id="lives">3</span></p>
+        <p>FPS: <span id="fps">0</span></p>
     </div>
 </div>
 <script src="js/game.js"></script>
