@@ -216,6 +216,7 @@ function startGame() {
     isGamePaused = false;
     startMenu.style.display = 'none';
     gameContainer.style.display = 'block';
+    resetPlayerPosition(); // Set player position to bottom center at the start
     lastTime = performance.now();
     fpsStartTime = lastTime;
     frameCount = 0;
@@ -236,13 +237,10 @@ function restartGame() {
     elapsedTime = 0;
     score = 0;
     lives = 3;
-    playerX = 100;
-    playerY = 100;
+    resetPlayerPosition(); // Reset player position to bottom center on restart
     timeDisplay.textContent = elapsedTime.toFixed(2);
     scoreDisplay.textContent = score;
     livesDisplay.textContent = lives;
-    player.style.left = `${playerX}px`;
-    player.style.top = `${playerY}px`;
 
     // Remove all enemies and bullets
     enemies.forEach(enemy => gameContainer.removeChild(enemy));
@@ -257,9 +255,21 @@ function restartGame() {
     requestAnimationFrame(gameLoop);
 }
 
+function resetPlayerPosition() {
+    playerX = (gameContainer.clientWidth - player.offsetWidth) / 2;
+    playerY = gameContainer.clientHeight - player.offsetHeight - 10;
+    player.style.left = `${playerX}px`;
+    player.style.top = `${playerY}px`;
+}
+
 function endGame() {
     isGameRunning = false;
     alert("Game Over! Your score: " + score);
+}
+
+function closeGame() {
+    isGameRunning = false;
+    window.open('', '_self').close();
 }
 
 // Handle player movement and shooting
@@ -282,7 +292,7 @@ restartButton.addEventListener('click', restartGame);
 startGameButton.addEventListener('click', startGame);
 exitGameButton.addEventListener('click', () => {
     startMenu.style.display = 'none';
-    alert("Game exited.");
+    closeGame();
 });
 
 resumeGameButton.addEventListener('click', () => {
@@ -298,9 +308,8 @@ restartGameButton.addEventListener('click', () => {
 });
 
 exitGamePauseButton.addEventListener('click', () => {
-    isGameRunning = false;
     pauseMenu.style.display = 'none';
-    alert("Game exited.");
+    closeGame();
 });
 
 function togglePause() {
